@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model cliente_config_v2 {
+  id         Int     @id @default(autoincrement())
+  id_cliente Int
+  config     String  @db.VarChar(100)
+  parametro  String? @db.VarChar(256)
+}
+
+model abcd {
+  id  Int    @id @default(autoincrement())
+  idx Int
+  con String @db.VarChar(100)
+}
+
+model teste {
+  idteste Int @id
+}
+
+model veiculos {
+  id                             Int       @default(autoincrement())
+  dataCadastro                   DateTime  @db.DateTime(0)
+  dataAtualizacao                DateTime  @db.DateTime(0)
+  id_cliente_proprietario        Int?      @default(0)
+  id_cliente                     Int
+  id_grupo                       Int
+  id_grupo_sub                   Int?      @default(0)
+  id_loja                        Int?
+  grupo_gestao                   String?   @db.VarChar(20)
+  placa                          String    @unique(map: "placa_UNIQUE") @db.VarChar(7)
+  placaMercosul                  String?   @db.VarChar(7)
+  comPlacaMercosul               Int?      @default(0)
+  renavam                        String    @db.VarChar(11)
+  marcaModelo                    String    @default("") @db.VarChar(50)
+  codigoMarca                    Int       @default(0)
+  especie                        String    @default("") @db.VarChar(20)
+  tipo                           String    @default("") @db.VarChar(20)
+  ano_fabricacao                 Int       @default(0)
+  ano_modelo                     Int       @default(0)
+  chassi                         String    @default("") @db.VarChar(30)
+  cor                            String    @default("") @db.VarChar(15)
+  combustivel                    String    @default("") @db.VarChar(15)
+  potencia                       String    @default("") @db.VarChar(15)
+  municipio_veic                 String    @default("") @db.VarChar(50)
+  uf_veic                        String    @default("") @db.VarChar(2)
+  municipio_contrato             String?   @db.VarChar(50)
+  uf_contrato                    String?   @db.VarChar(2)
+  sitVeiculo                     String    @default("") @db.VarChar(100)
+  nome_proprietario              String?   @db.VarChar(200)
+  cnpj_proprietario              String?   @db.VarChar(45)
+  cnpj                           String?   @db.VarChar(25)
+  centro_custo                   String?   @default("") @db.VarChar(20)
+  status_localiza                String?   @db.VarChar(3)
+  ride_sharing                   Int?      @default(0)
+  id_tipo_cobranca               Int?      @default(0)
+  dataVenda                      DateTime? @db.Date
+  status                         Int
+  historico                      String?   @db.Text
+  condutor_data_inicio           DateTime? @db.DateTime(0)
+  condutor_nome                  String?   @db.VarChar(254)
+  condutor_email                 String?   @db.VarChar(254)
+  multasParcelamentoValor        Decimal?  @db.Decimal(10, 2)
+  multasParcelamentoQtde         Int?
+  multasObrigatoriasValor        Decimal?  @db.Decimal(10, 2)
+  multasObrigatoriasQtde         Int?
+  multasDefesaObrigatoriasValor  Decimal?  @db.Decimal(10, 2)
+  multasDefesaObrigatoriasQtde   Int?
+  multasDefesaNObrigatoriasValor Decimal?  @db.Decimal(10, 2)
+  multasDefesaNObrigatoriasQtde  Int?
+  multasImpostasNaoVencidasValor Decimal?  @db.Decimal(10, 2)
+  multasImpostasNaoVencidasQtde  Int?
+  autoProcessoNotificacaoValor   Decimal?  @db.Decimal(10, 2)
+  autoProcessoNotificacaoQtde    Int?
+  autoNotificadoValor            Decimal?  @db.Decimal(10, 2)
+  autoNotificadoQtde             Int?
+  autoProcDefesaValor            Decimal?  @db.Decimal(10, 2)
+  autoProcDefesaQtde             Int?
+  debIpvaAno1                    Int?
+  debIpvaValor1                  Decimal?  @db.Decimal(10, 2)
+  debIpvaAno2                    Int?
+  debIpvaValor2                  Decimal?  @db.Decimal(10, 2)
+  debIpvaAno3                    Int?
+  debIpvaValor3                  Decimal?  @db.Decimal(10, 2)
+  debIpvaAno4                    Int?
+  debIpvaValor4                  Decimal?  @db.Decimal(10, 2)
+  debIpvaAno5                    Int?
+  debIpvaValor5                  Decimal?  @db.Decimal(10, 2)
+  debLicencAno                   Int?
+  debLicencValor                 Decimal?  @db.Decimal(8, 2)
+  debLicencAnteriores            Decimal?  @db.Decimal(8, 2)
+  debSeguroAno                   Int?
+  debSeguroValor                 Decimal?  @db.Decimal(8, 2)
+  debSeguroAnteriores            Decimal?  @db.Decimal(8, 2)
+  dataHoraUltimaConsulta         DateTime? @db.DateTime(0)
+  dataHoraUltimaConsultaDerSp    DateTime? @db.DateTime(0)
+  flagEntrouRestricao            Int?      @default(0)
+  flagSaiuRestricao              Int?      @default(0)
+  ipva_pago                      String?   @db.VarChar(50)
+  seguro_pago                    String?   @db.VarChar(50)
+  seguro_anterior_pago           String?   @db.VarChar(50)
+  taxa_licenciamento_paga        String?   @db.VarChar(120)
+  data_licenciamento             DateTime? @db.Date
+  situacao_licenciamento         String?   @db.VarChar(150)
+  situacao_orgao                 String?   @db.Text
+  erro_consulta_orgao            String?   @db.VarChar(120)
+  relatorio                      Int       @default(0)
+  dataCompra                     DateTime? @db.Date
+  notaFiscal                     String?   @db.VarChar(100)
+
+  @@id([id, relatorio])
+  @@index([chassi], map: "chassi")
+  @@index([dataAtualizacao], map: "dataAtualizacao")
+  @@index([id_cliente], map: "id_cliente")
+  @@index([id_grupo], map: "id_grupo")
+  @@index([relatorio], map: "idx_veiculos_relatorio")
+  @@index([placa], map: "placa")
+  @@index([placaMercosul], map: "placaMercosul")
+  @@index([renavam], map: "renavam")
+  @@index([status], map: "status")
+  @@index([status_localiza], map: "status_localiza")
+}
